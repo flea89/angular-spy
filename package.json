@@ -1,0 +1,47 @@
+{
+  "name": "ng-spy",
+  "version": "0.0.1",
+  "description": "Set of angularjs directives to deal with scroll spying",
+  "main": "dist/spy.js",
+  "scripts": {
+    "test": "node_modules/karma/bin/karma start karma.conf.js --single-run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/flea89/ng-spy.git"
+  },
+  "keywords": [
+    "angularjs",
+    "scroll",
+    "spy",
+    "ng-spy",
+    "scroll-spy",
+    "ng-scroll-spy"
+  ],
+  "author": "Alessandro Artoni <pchillari@google.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/flea89/ng-spy/issues"
+  },
+  "homepage": "https://github.com/flea89/ng-spy",
+  "devDependencies": {
+    "babelify": "^6.3.0",
+    "browserify": "^11.0.1",
+    "del": "^1.2.0",
+    "exorcist": "^0.4.0",
+    "gulp": "^3.9.0",
+    "gulp-connect": "^2.2.0",
+    "gulp-streamify": "^1.0.2",
+    "gulp-uglify": "^1.4.1",
+    "karma": "^0.13.2",
+    "karma-babel-preprocessor": "^5.2.1",
+    "karma-browserify": "^4.2.1",
+    "karma-chai-sinon": "^0.1.5",
+    "karma-chrome-launcher": "^0.2.0",
+    "karma-mocha": "^0.2.0",
+    "karma-mocha-reporter": "^1.0.2",
+    "karma-notify-reporter": "^0.1.1",
+    "run-sequence": "^1.1.5",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}
