@@ -9,7 +9,7 @@ mod.directive('spyVisible', [
         return {
             restrict: 'A',
             require: '^^spyScrollContainer',
-            link (scope, elem, attrs, ctrl) {
+            link (scope, elem, attrs, scrollContainerCtrl) {
                 let rect = {},
                     isHidden = false,
                     scrollContainer,
@@ -58,8 +58,8 @@ mod.directive('spyVisible', [
                     });
                 }
 
-                scrollContainer = ctrl.getScrollContainer() || $window.document.body;
-                ctrl.registerSpy(api);
+                scrollContainer = scrollContainerCtrl.getScrollContainer();
+                scrollContainerCtrl.registerSpy(api);
                 api.updateClientRect();
             }
         };
