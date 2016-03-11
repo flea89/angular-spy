@@ -14,7 +14,8 @@ describe('visible', () => {
             </div>
         `;
 
-    beforeEach(angular.mock.module('spy.scrollSpy.visible'));
+    beforeEach(angular.mock.module('spy.spies.visible'));
+    beforeEach(angular.mock.module('spy.utils.clientRect'));
     beforeEach(() => {
         scrollContainerController = {
             registerSpy: sinon.spy(),
@@ -38,7 +39,7 @@ describe('visible', () => {
     });
 
     it('should be an angular module', () => {
-        visible.name.should.equal('spy.scrollSpy.visible');
+        visible.name.should.equal('spy.spies.visible');
     });
 
     it('should get the scrollContainer DOM element', () => {

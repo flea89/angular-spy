@@ -1,7 +1,7 @@
 import debounce from '../utils/debounce.service';
 import windowScrollTop from '../utils/window-scroll-top.service';
 
-const mod = angular.module('spy.scrollSpy.scrollContainer', [
+const mod = angular.module('spy.scrollContainer', [
     debounce.name,
     windowScrollTop.name
 ]);

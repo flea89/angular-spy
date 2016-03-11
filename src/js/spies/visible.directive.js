@@ -1,4 +1,4 @@
-const mod = angular.module('spy.scrollSpy.visible', []);
+const mod = angular.module('spy.spies.visible', []);
 
 mod.directive('spyVisible', [
     '$window',

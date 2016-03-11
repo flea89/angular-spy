@@ -1,4 +1,4 @@
-const mod = angular.module('spy.clientRect', []);
+const mod = angular.module('spy.utils.clientRect', []);
 
 mod.factory('clientRect', [() => {
     return (scrollContainer, element) => {

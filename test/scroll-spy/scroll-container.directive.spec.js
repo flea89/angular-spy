@@ -12,7 +12,7 @@ describe('ngSpyContainer', () => {
             <div spy-scroll-container>
         `;
 
-    beforeEach(angular.mock.module('spy.scrollSpy.scrollContainer'));
+    beforeEach(angular.mock.module('spy.scrollContainer'));
     beforeEach(angular.mock.inject(($compile, $rootScope, $timeout, $window) => {
         compile = $compile;
         window = $window;
@@ -28,7 +28,7 @@ describe('ngSpyContainer', () => {
     });
 
     it('should be an angular module', () => {
-        scrollSpy.name.should.equal('spy.scrollSpy.scrollContainer');
+        scrollSpy.name.should.equal('spy.scrollContainer');
     });
 
     describe('controller', () => {
