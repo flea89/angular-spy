@@ -1,12 +1,12 @@
 import debounce from '../utils/debounce.service';
-import windowScrollHelper from '../utils/window-scroll-helper.service';
+import windowScrollTop from '../utils/window-scroll-top.service';
 
 const mod = angular.module('spy.scrollSpy.scrollContainer', [
     debounce.name,
-    windowScrollHelper.name
+    windowScrollTop.name
 ]);
 
-mod.directive('spyScrollContainer', ['$window', '$timeout', 'spyDebounce', 'windowScrollGetter', ($window, $timeout, spyDebounce, windowScrollGetter) => {
+mod.directive('spyScrollContainer', ['$window', '$timeout', 'spyDebounce', 'windowScrollTop', ($window, $timeout, spyDebounce, windowScrollTop) => {
     return {
         restrict: 'A',
         controller: ['$scope', '$element', function ($scope, $element) {
@@ -23,7 +23,6 @@ mod.directive('spyScrollContainer', ['$window', '$timeout', 'spyDebounce', 'wind
             const afTimeout = 400;
             let vpHeight,
                 $aWindow = angular.element($window),
-                $scrollTopReference = elem[0].tagName === 'BODY' ? windowScrollGetter() : elem,
                 $scroller = elem[0].tagName === 'BODY' ?
                     $aWindow : elem,
                 animationFrame,
@@ -69,7 +68,7 @@ mod.directive('spyScrollContainer', ['$window', '$timeout', 'spyDebounce', 'wind
             }
 
             function getViewportRect() {
-                const currentScroll = $scrollTopReference[0].scrollTop;
+                const currentScroll = windowScrollTop();
                 return {
                     top: currentScroll,
                     height: vpHeight

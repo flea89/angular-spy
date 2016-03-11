@@ -1,6 +1,6 @@
 const mod = angular.module('spy.clientRect', []);
 
-mod.factory('clientRect', ['$timeout', '$q', ($timeout, $q) => {
+mod.factory('clientRect', [() => {
     return (scrollContainer, element) => {
         const isHidden = element.offsetParent === null;
         let clientRect = element.getBoundingClientRect();

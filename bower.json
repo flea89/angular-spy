@@ -1,6 +1,6 @@
 {
-  "name": "ng-spy",
-  "homepage": "https://github.com/flea89/ng-spy",
+  "name": "angular-spy",
+  "homepage": "https://github.com/flea89/angular-spy",
   "authors": [
     "Alessandro Artoni <aartoni@google.com>",
     "Paolo Chillari <pchillari@google.com>"
@@ -16,7 +16,7 @@
     "angularjs",
     "scroll",
     "spy",
-    "ng-spy",
+    "angular-spy",
     "scroll-spy",
     "ng-scroll-spy"
   ],
