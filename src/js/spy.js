@@ -1,6 +1,6 @@
 import scrollSpyContainer from './scroll-container/scroll-container.directive';
 import spies from './spies/spies.module';
-import clientRect from './client-rect/client-rect.service';
+import clientRect from './utils/client-rect.service';
 
 const mod = angular.module('ngSpy', [
     scrollSpyContainer.name,
