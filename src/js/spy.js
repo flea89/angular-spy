@@ -4,9 +4,9 @@ import clientRect from './utils/client-rect.service';
 
  /**
   * @ngdoc module
-  * @name ngSpy
+  * @name spy
   */
-const mod = angular.module('ngSpy', [
+const mod = angular.module('spy', [
     scrollSpyContainer.name,
     spies.name,
     clientRect.name

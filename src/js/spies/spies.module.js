@@ -2,9 +2,9 @@ import visible from './visible.directive.js';
 
 /**
  * @ngdoc module
- * @name ngSpy.spies
+ * @name spy.spies
  */
-const mod = angular.module('ngSpy.spies', [
+const mod = angular.module('spy.spies', [
     visible.name
 ]);
 

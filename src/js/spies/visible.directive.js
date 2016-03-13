@@ -1,6 +1,6 @@
 /**
  * @ngdoc module
- * @name ngSpy.spies.spy
+ * @name spy.spies.spy
  */
 const mod = angular.module('spy.spies.visible', []);
 

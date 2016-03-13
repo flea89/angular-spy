@@ -1,6 +1,6 @@
 /**
  * @ngdoc module
- * @name ngSpy.utils.windowScrollTop
+ * @name spy.utils.windowScrollTop
  */
 const mod = angular.module('spy.utils.windowScrollTop', []);
 

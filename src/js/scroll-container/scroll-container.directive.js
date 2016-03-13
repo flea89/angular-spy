@@ -3,7 +3,7 @@ import windowScrollTop from '../utils/window-scroll-top.service';
 
 /**
  * @ngdoc module
- * @name ngSpy.scrollContainer
+ * @name spy.scrollContainer
  */
 const mod = angular.module('spy.scrollContainer', [
     debounce.name,

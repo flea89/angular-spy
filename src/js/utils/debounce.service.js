@@ -1,6 +1,6 @@
 /**
  * @ngdoc module
- * @name ngSpy.utils.debounce
+ * @name spy.utils.debounce
  */
 const mod = angular.module('spy.utils.debounce', []);
 

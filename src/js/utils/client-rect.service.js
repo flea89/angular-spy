@@ -1,6 +1,6 @@
 /**
  * @ngdoc module
- * @name ngSpy.utils.clientRect
+ * @name spy.utils.clientRect
  */
 const mod = angular.module('spy.utils.clientRect', []);
 
