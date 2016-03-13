@@ -15,9 +15,27 @@ var _utilsWindowScrollTopService = require('../utils/window-scroll-top.service')
 
 var _utilsWindowScrollTopService2 = _interopRequireDefault(_utilsWindowScrollTopService);
 
+/**
+ * @ngdoc module
+ * @name spy.scrollContainer
+ */
 var mod = angular.module('spy.scrollContainer', [_utilsDebounceService2['default'].name, _utilsWindowScrollTopService2['default'].name]);
 
-mod.directive('spyScrollContainer', ['$window', '$timeout', 'spyDebounce', 'windowScrollTop', function ($window, $timeout, spyDebounce, windowScrollTop) {
+mod.directive('spyScrollContainer', ['$window', '$timeout', 'spyDebounce', 'windowScrollTop', spyScrollContainerDirective]);
+
+/**
+* @ngdoc directive
+* @module spy.scrollContainer
+* @name spyScrollContainer
+*
+* @restrict A
+*
+*
+* @description
+* The spyScrollContainer indicates which is the main scroller in the page.
+*
+*/
+function spyScrollContainerDirective($window, $timeout, spyDebounce, windowScrollTop) {
     return {
         restrict: 'A',
         controller: ['$scope', '$element', function ($scope, $element) {
@@ -112,7 +130,7 @@ mod.directive('spyScrollContainer', ['$window', '$timeout', 'spyDebounce', 'wind
             $timeout(onResize);
         }
     };
-}]);
+}
 
 exports['default'] = mod;
 module.exports = exports['default'];
@@ -121,7 +139,7 @@ module.exports = exports['default'];
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
-    value: true
+  value: true
 });
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -130,12 +148,20 @@ var _visibleDirectiveJs = require('./visible.directive.js');
 
 var _visibleDirectiveJs2 = _interopRequireDefault(_visibleDirectiveJs);
 
-var mod = angular.module('ngSpy.spies', [_visibleDirectiveJs2['default'].name]);
+/**
+ * @ngdoc module
+ * @name spy.spies
+ */
+var mod = angular.module('spy.spies', [_visibleDirectiveJs2['default'].name]);
 
 exports['default'] = mod;
 module.exports = exports['default'];
 
 },{"./visible.directive.js":3}],3:[function(require,module,exports){
+/**
+ * @ngdoc module
+ * @name spy.spies.spy
+ */
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -143,7 +169,26 @@ Object.defineProperty(exports, '__esModule', {
 });
 var mod = angular.module('spy.spies.visible', []);
 
-mod.directive('spyVisible', ['$window', '$parse', '$timeout', 'clientRect', function ($window, $parse, $timeout, clientRect) {
+mod.directive('spyVisible', ['$window', '$parse', '$timeout', 'clientRect', spyVisibleDirective]);
+
+/**
+* @ngdoc directive
+* @module spy.spies.visible
+* @name spyVisible
+*
+* @restrict A
+*
+*
+* @description
+* Spies whenere a dom element becomes fully visible. The binding is set back
+* to false when is becomes fully hidden.
+*
+* spyVisible requires the spyScrollContainer to be place on the leading parent
+* scroll container.
+*
+*
+*/
+function spyVisibleDirective($window, $parse, $timeout, clientRect) {
     return {
         restrict: 'A',
         require: '^^spyScrollContainer',
@@ -154,8 +199,8 @@ mod.directive('spyVisible', ['$window', '$parse', '$timeout', 'clientRect', func
                 api = {
                 updateClientRect: function updateClientRect() {
                     var cRect = clientRect(scrollContainer, elem[0]);
-                    rect = cRect.rect;
-                    isHidden = cRect.isHidden;
+                    isHidden = elem[0].offsetParent === null;
+                    rect = cRect;
                 },
                 update: function update(viewportRect) {
                     var isFullyVisible = rect.top >= viewportRect.top && //Top border in viewport
@@ -201,7 +246,7 @@ mod.directive('spyVisible', ['$window', '$parse', '$timeout', 'clientRect', func
             api.updateClientRect();
         }
     };
-}]);
+}
 
 exports['default'] = mod;
 module.exports = exports['default'];
@@ -210,7 +255,7 @@ module.exports = exports['default'];
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
-    value: true
+  value: true
 });
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -227,7 +272,11 @@ var _utilsClientRectService = require('./utils/client-rect.service');
 
 var _utilsClientRectService2 = _interopRequireDefault(_utilsClientRectService);
 
-var mod = angular.module('ngSpy', [_scrollContainerScrollContainerDirective2['default'].name, _spiesSpiesModule2['default'].name, _utilsClientRectService2['default'].name]);
+/**
+ * @ngdoc module
+ * @name spy
+ */
+var mod = angular.module('spy', [_scrollContainerScrollContainerDirective2['default'].name, _spiesSpiesModule2['default'].name, _utilsClientRectService2['default'].name]);
 
 //TODO: The current implementation works for scroll spies on the
 // body element and for scroll divs when no parents are scrollable.
@@ -237,36 +286,65 @@ exports['default'] = mod;
 module.exports = exports['default'];
 
 },{"./scroll-container/scroll-container.directive":1,"./spies/spies.module":2,"./utils/client-rect.service":5}],5:[function(require,module,exports){
+/**
+ * @ngdoc module
+ * @name spy.utils.clientRect
+ */
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
-    value: true
+  value: true
 });
 var mod = angular.module('spy.utils.clientRect', []);
 
-mod.factory('clientRect', [function () {
-    return function (scrollContainer, element) {
-        var isHidden = element.offsetParent === null;
-        var clientRect = element.getBoundingClientRect();
-        var rect = {};
-        if (!isHidden) {
-            rect.top = clientRect.top + scrollContainer.scrollTop;
-            rect.left = clientRect.left + scrollContainer.scrollLeft;
-            rect.width = clientRect.width;
-            rect.height = clientRect.height;
-        }
+/**
+ * @typedef elementRect
+ * @type Object
+ * @property {number} top The X Coordinate
+ * @property {number} left The Y Coordinate
+ * @property {number} width The element width
+ * @property {number} height The elent height.
+ */
 
-        return {
-            rect: rect,
-            isHidden: isHidden
-        };
-    };
-}]);
+mod.factory('clientRect', [clientRectFactory]);
+
+/**
+ * @ngdoc service
+ * @name clientRect
+ * @module spy.utils.clientRect
+ *
+ * @description
+ * `$mdSidenav` is a utility to calculate the element position and size,
+ * taking in account the parent scroller container. It checks if the element is in the dom
+ * or not.
+ *
+ * @param  {DOMElement} scrollContainer The root scroll container.
+ * @param  {DOMElement} element         Target element.
+ * @return {elementRect} elementRect
+ */
+
+function clientRectFactory() {
+  return function (scrollContainer, element) {
+    var clientRect = element.getBoundingClientRect();
+    var rect = {};
+
+    rect.top = clientRect.top + scrollContainer.scrollTop;
+    rect.left = clientRect.left + scrollContainer.scrollLeft;
+    rect.width = clientRect.width;
+    rect.height = clientRect.height;
+
+    return rect;
+  };
+}
 
 exports['default'] = mod;
 module.exports = exports['default'];
 
 },{}],6:[function(require,module,exports){
+/**
+ * @ngdoc module
+ * @name spy.utils.debounce
+ */
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -274,7 +352,25 @@ Object.defineProperty(exports, '__esModule', {
 });
 var mod = angular.module('spy.utils.debounce', []);
 
-mod.factory('spyDebounce', ['$timeout', '$q', function ($timeout, $q) {
+mod.factory('spyDebounce', ['$timeout', '$q', debounceFactory]);
+
+/**
+* @ngdoc service
+* @name debounce
+* @module spy.utils.debounce
+*
+* @description
+* Simple debounce function.
+*
+* @param  {function} func       The function to debounce.
+* @param  {number} wait         The delay expressed in ms.
+* @param  {boolean} immediate   Trigger the function on the
+*                               leading edge, instead of the trailing.
+* @return {function}            debounced function
+*/
+function debounceFactory($timeout, $q) {
+    var _this = this;
+
     return function (func, wait, immediate) {
         var timeout = undefined,
             deferred = $q.defer();
@@ -284,7 +380,7 @@ mod.factory('spyDebounce', ['$timeout', '$q', function ($timeout, $q) {
                 args[_key] = arguments[_key];
             }
 
-            var context = undefined,
+            var context = _this,
                 later = function later() {
                 timeout = null;
                 if (!immediate) {
@@ -304,24 +400,43 @@ mod.factory('spyDebounce', ['$timeout', '$q', function ($timeout, $q) {
             return deferred.promise;
         };
     };
-}]);
+}
 
 exports['default'] = mod;
 module.exports = exports['default'];
 
 },{}],7:[function(require,module,exports){
+/**
+ * @ngdoc module
+ * @name spy.utils.windowScrollTop
+ */
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
-    value: true
+  value: true
 });
 var mod = angular.module('spy.utils.windowScrollTop', []);
 
-mod.factory('windowScrollTop', ['$window', function ($window) {
-    return function () {
-        return $window.document.documentElement.scrollTop || $window.document.body.scrollTop;
-    };
-}]);
+mod.factory('windowScrollTop', ['$window', windowScrollTopFactory]);
+
+/**
+* @ngdoc service
+* @name windowScrollTop
+* @module spy.utils.debounce
+*
+* @description
+*
+* Different browsers scroll the page using different elements. For example,
+* Firefox scrolls on document.documentElement (<html>),
+* while Safari scrolls on document.body.
+* The scrollTop property is therefore inconsistent, let's just use one or the other
+ * @return {number}
+ */
+function windowScrollTopFactory($window) {
+  return function () {
+    return $window.document.documentElement.scrollTop || $window.document.body.scrollTop;
+  };
+}
 
 exports['default'] = mod;
 module.exports = exports['default'];

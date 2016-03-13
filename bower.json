@@ -1,5 +1,6 @@
 {
   "name": "angular-spy",
+  "version": "0.0.3",
   "homepage": "https://github.com/flea89/angular-spy",
   "authors": [
     "Alessandro Artoni <aartoni@google.com>",
