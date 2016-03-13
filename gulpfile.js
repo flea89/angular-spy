@@ -1,11 +1,13 @@
 //jshint node:true
 'use strict';
 
-var gulp = require('gulp'),
+var
+    gulp = require('gulp'),
     babelify = require('babelify'),
     browserify = require('browserify'),
     connect = require('gulp-connect'),
     del = require('del'),
+    Dgeni = require('Dgeni'),
     source = require('vinyl-source-stream'),
     exorcist   = require('exorcist'),
     KarmaServer = require('karma').Server,
@@ -73,6 +75,16 @@ gulp.task('del:dist', function (done) {
 
 gulp.task('deploy', function (cb) {
     runSequence('del:dist', 'compilejs', 'build', cb);
+});
+
+gulp.task('dgeni', function() {
+    try {
+    var dgeni = new Dgeni([require('./doc/dgeni-doc')]);
+    return dgeni.generate();
+  } catch(x) {
+    console.log(x.stack);
+    throw x;
+  }
 });
 
 gulp.task('default', ['compilejs-dev', 'server', 'watch']);
