@@ -1,6 +1,27 @@
+/**
+ * @ngdoc module
+ * @name ngSpy.utils.debounce
+ */
 const mod = angular.module('spy.utils.debounce', []);
 
-mod.factory('spyDebounce', ['$timeout', '$q', ($timeout, $q) => {
+mod.factory('spyDebounce', ['$timeout', '$q', debounceFactory]);
+
+
+/**
+* @ngdoc service
+* @name debounce
+* @module spy.utils.debounce
+*
+* @description
+* Simple debounce function.
+*
+* @param  {function} func       The function to debounce.
+* @param  {number} wait         The delay expressed in ms.
+* @param  {boolean} immediate   Trigger the function on the
+*                               leading edge, instead of the trailing.
+* @return {function}            debounced function
+*/
+function debounceFactory($timeout, $q) {
     return (func, wait, immediate) => {
         let timeout,
             deferred = $q.defer();
@@ -26,6 +47,6 @@ mod.factory('spyDebounce', ['$timeout', '$q', ($timeout, $q) => {
             return deferred.promise;
         };
     };
-}]);
+}
 
 export default mod;

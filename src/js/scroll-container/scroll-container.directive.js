@@ -1,12 +1,31 @@
 import debounce from '../utils/debounce.service';
 import windowScrollTop from '../utils/window-scroll-top.service';
 
+/**
+ * @ngdoc module
+ * @name ngSpy.scrollContainer
+ */
 const mod = angular.module('spy.scrollContainer', [
     debounce.name,
     windowScrollTop.name
 ]);
 
-mod.directive('spyScrollContainer', ['$window', '$timeout', 'spyDebounce', 'windowScrollTop', ($window, $timeout, spyDebounce, windowScrollTop) => {
+mod.directive('spyScrollContainer', ['$window', '$timeout', 'spyDebounce', 'windowScrollTop',spyScrollContainerDirective ]);
+
+
+/**
+* @ngdoc directive
+* @module spy.scrollContainer
+* @name spyScrollContainer
+*
+* @restrict A
+*
+*
+* @description
+* The spyScrollContainer indicates which is the main scroller in the page.
+*
+*/
+function spyScrollContainerDirective($window, $timeout, spyDebounce, windowScrollTop) {
     return {
         restrict: 'A',
         controller: ['$scope', '$element', function ($scope, $element) {
@@ -101,6 +120,6 @@ mod.directive('spyScrollContainer', ['$window', '$timeout', 'spyDebounce', 'wind
             $timeout(onResize);
         }
     };
-}]);
+}
 
 export default mod;
