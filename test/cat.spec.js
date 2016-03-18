@@ -6,6 +6,6 @@ describe('spy', () => {
     });
 
     it('should be an angular module', () => {
-        spy.name.should.equal('ngSpy');
+        spy.name.should.equal('spy');
     });
 });

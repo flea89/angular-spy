@@ -1,6 +1,6 @@
 import scrollSpy from '../../src/js/scroll-container/scroll-container.directive';
 
-describe('ngSpyContainer', () => {
+describe('spyContainer', () => {
     let compile,
         rootScope,
         scope,

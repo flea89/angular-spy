@@ -1,11 +1,11 @@
-import ngSpy from '../../src/js/spy';
+import spy from '../../src/js/spy';
 
-describe('ngSpy', () => {
+describe('spy', () => {
     it('should be defined', () => {
-        ngSpy.should.be.defined;
+        spy.should.be.defined;
     });
 
     it('should be an angular module', () => {
-        ngSpy.name.should.equal('ngSpy');
+        spy.name.should.equal('spy');
     });
 });
