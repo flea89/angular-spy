@@ -13,6 +13,11 @@ var gulp = require('gulp'),
     streamify = require('gulp-streamify'),
     runSequence = require('run-sequence'),
     js = 'src/js/**/*.js',
+    git = require('gulp-git'),
+    bump = require('gulp-bump'),
+    filter = require('gulp-filter'),
+    tag_version = require('gulp-tag-version'),
+    argv = require('yargs').argv,
 
     compileJs = function (dist) {
         var dest = dist ? 'dist' : 'example';
@@ -55,6 +60,13 @@ gulp.task('karma', function (done) {
     }, done).start();
 });
 
+gulp.task('karma-sr', function (done) {
+    new KarmaServer({
+        configFile: __dirname + '/karma.conf.js',
+        singleRun: true
+    }, done).start();
+});
+
 gulp.task('server', function () {
     connect.server({
         root: ['example', 'bower_components']
@@ -71,8 +83,33 @@ gulp.task('del:dist', function (done) {
     ], done);
 });
 
+
+
+function inc(importance) {
+    // get all the files to bump version in
+    return gulp.src(['./package.json', './bower.json'])
+        // bump the version number in those files
+        .pipe(bump({type: importance}))
+        // save it back to filesystem
+        .pipe(gulp.dest('./'))
+        // commit the changed version number
+        .pipe(git.commit('Bumps package version'))
+
+        // read only one file to get the version number
+        .pipe(filter('package.json'))
+        // **tag it in the repository**
+        .pipe(tag_version());
+}
+
+gulp.task('patch', function() { return inc('patch'); })
+gulp.task('feature', function() { return inc('minor'); })
+gulp.task('release', function() { return inc('major'); })
+
 gulp.task('deploy', function (cb) {
-    runSequence('del:dist', 'compilejs', 'build', cb);
+    var tasks = ['del:dist', 'compilejs', 'karma-sr', 'build'];
+    tasks.push(argv.type);
+    tasks.push(cb)
+    runSequence.apply(null, tasks);
 });
 
 gulp.task('default', ['compilejs-dev', 'server', 'watch']);
