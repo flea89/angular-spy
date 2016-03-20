@@ -29,7 +29,7 @@ var gulp = require('gulp'),
             .on('error', function (err) {
                 console.log('Error : ' + err.message);
             })
-            .pipe(exorcist(dest + '/spy.js.map'))
+            .pipe(exorcist(dest + '/spy.js.map', null, null, dest))
             .pipe(source('spy.js'))
             .pipe(gulp.dest(dest));
     };
