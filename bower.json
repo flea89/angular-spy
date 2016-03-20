@@ -19,7 +19,7 @@
     "spy",
     "angular-spy",
     "scroll-spy",
-    "ng-scroll-spy"
+    "angular-spy"
   ],
   "license": "MIT",
   "ignore": [
