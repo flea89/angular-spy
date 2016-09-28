@@ -32,12 +32,18 @@ mod.factory('clientRect', [clientRectFactory]);
  */
 
 function clientRectFactory() {
-    return (scrollContainer, element) => {
+    return (scrollContainer, element, offset) => {
         let clientRect = element.getBoundingClientRect();
         let rect = {};
+        let defaultOffset = {
+            top: 0,
+            left: 0
+        };
 
-        rect.top = clientRect.top + scrollContainer.scrollTop;
-        rect.left = clientRect.left + scrollContainer.scrollLeft;
+        offset = angular.extend(defaultOffset, offset);
+
+        rect.top = clientRect.top + scrollContainer.scrollTop + offset.top;
+        rect.left = clientRect.left + scrollContainer.scrollLeft + offset.left;
         rect.width = clientRect.width;
         rect.height = clientRect.height;
 

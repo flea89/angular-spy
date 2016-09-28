@@ -38,9 +38,10 @@ function spyVisibleDirective($window, $parse, $timeout, clientRect) {
             let rect = {},
                 isHidden = false,
                 scrollContainer,
+                offset = $parse(attrs.offset)(scope),
                 api = {
                     updateClientRect() {
-                        const cRect = clientRect(scrollContainer, elem[0]);
+                        const cRect = clientRect(scrollContainer, elem[0], offset);
                         isHidden = elem[0].offsetParent === null;
                         rect = cRect;
                     },
@@ -79,6 +80,14 @@ function spyVisibleDirective($window, $parse, $timeout, clientRect) {
                             api.updateClientRect();
                             api.update();
                         }, 0);
+                    }
+                });
+            }
+
+            if (angular.isDefined(attrs.offset)) {
+                scope.$watch(attrs.offset, function(nVal, oVal) {
+                    if(nVal !== oVal) {
+                        offset = nVal;
                     }
                 });
             }
